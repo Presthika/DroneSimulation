@@ -1,0 +1,38 @@
+PSEUDOCODE:
+
+Functionality: Fleet Manager
+Purpose: Manage adding and removing drones from the fleet
+Input: droneID (int)
+Output: Confirmation or error message
+
+AddDrone(droneID)
+
+  FOR each drone in drone[]
+    IF drone.ID == droneID THEN
+      PRINT "Drone with ID [droneID] already exists"
+      RETURN
+    END IF
+  END FOR
+
+  SET drone[droneCount].ID = droneID
+  INCREMENT droneCount
+  PRINT "Drone with ID [droneID] added"
+
+AddDrone
+
+DeleteDrone(droneID)
+
+  FOR each drone in drone[]
+    IF drone.ID == droneID THEN
+      SHIFT all drones after it left by one
+      DECREMENT droneCount
+      PRINT "Drone with ID [droneID] deleted"
+      RETURN
+    END IF
+  END FOR
+
+  PRINT "Drone with ID [droneID] not found"
+
+DeleteDrone
+
+

@@ -1,0 +1,73 @@
+Functionality: Simulation Engine
+Purpose: Run simulation steps, update drone positions, detect collisions, and display status
+Input: timeStep (float), totalSteps (int), fleet (FleetManager)
+Output: Updated positions, collision warnings, simulation status
+
+BEGIN SimulationEngine(timeStep, totalSteps, fleet)
+
+  IF timeStep <= 0 THEN
+    PRINT "Invalid time step"
+    RETURN
+  END IF
+
+  SET this.timeStep = timeStep
+  SET this.totalSteps = totalSteps
+  SET this.currentStep = 0
+
+END SimulationEngine
+
+BEGIN RunStep()
+
+  IF timeStep <= 0 THEN
+    PRINT "Invalid time step. Must be greater than 0"
+    RETURN
+  END IF
+
+  INCREMENT currentStep
+  PRINT "--- Step [currentStep] of [totalSteps] ---"
+
+  // Update all drone positions
+  FOR each drone i in fleet
+    CALL drone[i].updatePosition(timeStep)
+  END FOR
+
+  // Check for collisions
+  FOR each drone i in fleet
+    FOR each drone j in fleet where j > i
+      IF drone[i].detectCollision(drone[j]) THEN
+        PRINT "Warning: Collision detected between Drone [i] and Drone [j]"
+      END IF
+    END FOR
+  END FOR
+
+  CALL DisplayStatus()
+
+END RunStep
+
+BEGIN RunFullSimulation()
+
+  IF totalSteps <= 0 THEN
+    PRINT "Error: No simulation steps set"
+    RETURN
+  END IF
+
+  PRINT "Starting simulation..."
+
+  WHILE currentStep < totalSteps
+    CALL RunStep()
+  END WHILE
+
+  PRINT "Simulation complete"
+
+END RunFullSimulation
+
+BEGIN DisplayStatus()
+
+  PRINT "Current Step: [currentStep] / [totalSteps]"
+  PRINT "Drones in fleet: [droneCount]"
+
+  FOR each drone i in fleet
+    PRINT "Drone [ID] - Position: [position]"
+  END FOR
+
+END DisplayStatus

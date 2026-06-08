@@ -1,0 +1,159 @@
+CLASS Drone
+
+    PRIVATE:
+        integer droneID
+        array position[3]
+        array velocity[3]
+        array acceleration[3]
+        string color
+
+    PUBLIC:
+
+    //----------------- CONSTRUCTORS ---------------
+
+    FUNCTION Constructor(id, x, y, z, vx,  vy, vz, ax, ay, az)
+        SET droneID = id
+        SET position = [x, y, z]
+        SET velocity = [vx, vy, vz]
+        SET acceleration = [ax, ay, az]
+    END FUNCTION
+
+    FUNCTION Default Constructor()
+        SET droneID = 0
+        SET position = [0, 0, 0]
+        SET velocity = [0, 0, 0]
+        SET acceleration = [0, 0, 0]
+    END FUNCTION
+
+    //---------------- SETTERS -----------------
+
+    FUNCTION setDroneID(id)
+        SET droneID = id
+    END FUNCTION
+
+    FUNCTION setPosition(x, y, z)
+        SET position = [x, y, z]
+    END FUNCTION
+
+    FUNCTION setVelocity(vx, vy, vz)
+        SET velocity = [vx, vy, vz]
+    END FUNCTION
+
+    FUNCTION setAcceleration(ax, ay, az)
+        SET acceleration = [ax, ay, az]
+    END FUNCTION
+
+    FUNCTION setColor(c)
+        SET color = c
+    END FUNCTION
+
+    //-----------------GETTERS -----------------
+
+    FUNCTION getDroneID()
+        RETURN droneID
+    END FUNCTION
+
+    FUNCTION getPosition()
+        RETURN position
+    END FUNCTION
+
+    FUNCTION getVelocity()
+        RETURN velocity
+    END FUNCTION
+
+    FUNCTION getAcceleration()
+        RETURN acceleration
+    END FUNCTION
+
+    FUNCTION getColor()
+        RETURN color
+    END FUNCTION
+
+    //---------------- CALCULATED VALUES ---------------
+
+    FUNCTION getSpeed()
+        RETURN calculated magnitude of velocity
+    END FUNCTION
+
+    FUNCTION getVelocityAngle()
+        RETURN calcualted angle in degrees
+    END FUNCTION
+
+    FUNCTION getDistanceFromOrigin()
+        RETURN calculated distance
+    END FUNCTION
+
+    FUNCTION getDistanceFromOther(otherDrone)
+        CALCULATE distance from other drone in x
+        CALCULATE distance from other drone in y
+        CALCULATE distance from other drone in z
+        RETURN calculated distance
+    END FUNCTION
+
+    FUNCTION getAccelerationMagnitude()
+        RETURN calculated magnitude of acceleration
+    END FUNCTION
+
+   // ----------------- DISPLAY-----------------
+
+    FUNCTION displayInfo()
+        PRINT droneID
+        PRINT position
+        PRINT velocity
+        PRINT acceleration
+        PRINT color
+    END FUNCTION
+
+    //----------------- MOTION FUNCTIONS -----------------
+
+    FUNCTION updatePosition(time)
+        CALCULATE new position
+        PRINT updated position
+    END FUNCTION
+
+    FUNCTION updateVelocity(ax, ay, az, time)
+        CALCULATE new velocity
+        PRINT updated velocity
+    END FUNCTION
+
+    FUNCTION applyAcceleration(ax, ay, az, time)
+        CALL updateVelocity(ax, ay, az, time)
+        CALL updatePosition(time)
+    END FUNCTION
+
+    ----------------- BASIC ACTIONS -----------------
+
+    FUNCTION stop()
+        SET velocity = [0, 0, 0]
+        PRINT drone stopped
+    END FUNCTION
+
+    FUNCTION reset()
+        SET position = [0, 0, 0]
+        SET velocity = [0, 0, 0]
+        SET acceleration = [0, 0, 0]
+        PRINT reset message
+    END FUNCTION
+
+    ----------------- DRONE INTERACTIONS -----------------
+
+    FUNCTION detectCollision(otherDrone, collisionDistance)
+        CALCULATE distance between drones
+
+        IF distance < collisionDistance THEN
+            PRINT collision detected
+            RETURN 1
+        ELSE
+            PRINT no collision
+            RETURN 0
+        END IF
+    END FUNCTION
+
+    FUNCTION avoidCollision(otherDrone, collisionDistance)
+        IF detectCollision(otherDrone, collisionDistance) == 1 THEN
+            NEGATE each velocity component
+            PRINT updated velocity
+        END IF
+    END FUNCTION
+
+END CLASS

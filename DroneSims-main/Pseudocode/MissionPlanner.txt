@@ -1,0 +1,88 @@
+CLASS MissionPlanner
+
+    PRIVATE:
+        integer missionID
+        string missionName
+        string missionType
+        array missionRunNames[10]
+        integer missionRunCount
+
+    PUBLIC:
+
+    //--------------- CONSTRUCTORS -----------------
+
+    FUNCTION Constructor(ID, name, type)
+        SET missionID = ID
+        SET missionName = name
+        SET missionType = type
+        SET missionRunCount = 0
+    END FUNCTION
+
+    FUNCTION Default Constructor()
+        SET missionID = 0
+        SET missionName = "Default Mission"
+        SET missionType = "Default Type"
+        SET missionRunCount = 0
+    END FUNCTION
+
+    //-----------------SETTERS -----------------
+
+    FUNCTION setMissionID(ID)
+        SET missionID = ID
+    END FUNCTION
+
+    FUNCTION setMissionName(name)
+        SET missionName = name
+    END FUNCTION
+
+    FUNCTION setMissionType(type)
+        SET missionType = type
+    END FUNCTION
+
+    //----------------- GETTERS ----------------
+
+    FUNCTION getMissionID()
+        RETURN missionID
+    END FUNCTION
+
+    FUNCTION getMissionName()
+        RETURN missionName
+    END FUNCTION
+
+    FUNCTION getMissionType()
+        RETURN missionType
+    END FUNCTION
+
+    //----------------- FUNCTIONS ---------------
+
+    FUNCTION displayMissionInfo()
+        PRINT "Mission Info"
+        PRINT missionID
+        PRINT missionName
+        PRINT missionType
+    END FUNCTION
+
+    FUNCTION assignMission(fleet)
+        ASSIGN mission to fleet object // Using fleet ID from Fleet object
+    END FUNCTION
+
+    FUNCTION assignMission(drone)
+        ASSIGN mission to drone
+    END FUNCTION
+
+    FUNCTION deleteMission()
+        SET missionID = 0
+        SET missionName = "Deleted Mission"
+        SET missionType = "Deleted Type"
+    END FUNCTION
+
+    FUNCTION addMissionElement(name)
+        IF missionRunCount < 10 THEN
+            missionRunNames[missionRunCount] = name
+            INCREMENT missionRunCount
+        ELSE
+            PRINT "Cannot add more elements"
+        END IF
+    END FUNCTION
+
+END CLASS
