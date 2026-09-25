@@ -1,76 +1,36 @@
-# DroneSimulation
+# Drone Fleet Simulator
 
-# DroneSimulations
-EECE2140 Final Project - Drone show simulations
+A C++ simulator for a drone light show, built as the final project for EECE 2140: Computing Fundamentals for Engineers at Northeastern University (April 2026). Users pick a formation, choose how many drones to fly, and step through the simulation while it tracks every drone's position and flags collisions.
 
-**Drone Fleet Simulator** <br>
-Team Members: Riley Ashok and Presthika Vijaykumar  <br>
-Course: EECE 2140 — Computing Fundamentals in C++ <br>
-Date: April 10th, 2026
+## Features
 
-**Project Overview:** <br>
-A C++ simulation of a drone fleet management system. The simulator allows users to register drones, assign missions, plan paths, detect collisions, and run a full simulation of a drone show with real-time status updates.
+- **Five formations:** Line, Circle, Triangle, Diamond, and Star, each with its own drone count limits
+- **3D motion:** every drone tracks position, velocity, and acceleration, updated each time step
+- **Collision detection:** each step checks every pair of drones and warns when two get within a set distance; drones can reverse course to avoid each other
+- **Input validation:** menu inputs are range-checked so bad input doesn't crash the program
 
-**Main Functionalities:** <br>
-Drone Registration — Add and initialize drones into the fleet <br>
-Mission Assignment — Assign shape formation missions to groups of drones <br>
-Path Planning — Calculate optimal collision-free paths for each drone <br>
-Collision Detection & Avoidance — Detect proximity risks and reroute drones <br>
-Simulation Update — Advance the simulation step by step and display status <br>
+## Class design
 
-**OOP Design Summary** <br>
-Class                                           Responsibility <br>
-Drone                 Stores individual drone data (ID, position, velocity) and handles movement <br>
-FleetManager              Manages the full collection of drones, handles adding and removing <br>
-MissionPlanner              Assigns missions, plans paths, and manages the mission queue <br>
-SimulationEngine                  Runs each simulation step and displays fleet status <br>
+| Class | Responsibility |
+|---|---|
+| `Drone` | Stores one drone's ID, position, velocity, acceleration, and color; handles movement and collision checks. Implements the Rule of Three (copy constructor, copy assignment, destructor). |
+| `FleetManager` | Holds up to 100 drones in a fixed array for O(1) access by index; adds and removes drones and blocks duplicate IDs |
+| `MissionPlanner` | Stores mission details and assigns missions to single drones or the whole fleet |
+| `SimulationEngine` | Advances the simulation step by step, runs collision checks, and prints fleet status |
 
+## How to run
 
+```bash
+cd DroneSims-main
+clang++ -std=c++17 src/main.cpp -o drone_sim
+./drone_sim
+```
 
-**Tools and Technologies:** <br>
-C++ <br>
-clang++ compiler <br>
-VS Code <br>
-GitHub  <br>
+## Project files
 
+- `DroneSims-main/src/`: C++ source and header files
+- `DroneSims-main/Pseudocode/`: pseudocode for each class, written before implementation
 
-**Folder Structure** <br>
-DroneFleetSimulator/ <br>
-│ <br>
-├── README.md <br>
-├── docs/ <br>
-│   └── System_Design_Overview.pdf <br>
-├── pseudocode/ <br>
-│   └── pseudocode.txt <br>
-├── src/ <br>
-│   ├── main.cpp <br>
-│   ├── Drone.h <br>
-│   ├── Drone.cpp <br>
-│   ├── FleetManager.h <br>
-│   ├── FleetManager.cpp <br>
-│   ├── MissionPlanner.h <br>
-│   ├── MissionPlanner.cpp <br>
-│   ├── SimulationEngine.h <br>
-│   └── SimulationEngine.cpp <br>
-└── images/ <br>
-    └── system_diagram.png <br>
+## Team
 
-
-**Project Goals:** <br>
-Simulate a real-world drone fleet show in C++ <br>
-Demonstrate OOP principles through class design and interaction <br>
-Implement collision detection and path planning logic <br>
-Visualize drone positions and mission progress <br>
-
-**Current Implementation Status:** <br>
-OOP class design finalized <br>
-Drone class implemented with Rule of Three <br>
-FleetManager class implemented <br>
-MissionPlanner class implemented <br>
-SimulationEngine class implemented <br>
-Main simulation loop complete <br>
-5 formation shapes (Line, Circle, Triangle, Diamond, Star) <br>
-Input validation with error handling <br>
-Collision detection between drones <br>
-
-
+Riley Ashok and Presthika Vijaykumar
